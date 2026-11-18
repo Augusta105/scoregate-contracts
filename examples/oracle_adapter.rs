@@ -28,7 +28,7 @@
 
 #![no_std]
 
-use soroban_sdk::{contract, contractimpl, contracttype, Address, Env, Symbol};
+use soroban_sdk::{contract, contractimpl, contracttype, Env, Symbol};
 
 /// Storage key used by the example oracle.
 #[contracttype]
@@ -73,9 +73,9 @@ impl ExamplePriceFeedOracle {
 //
 // 1. Deploy ScoreGate and the oracle:
 //
-//    let ll_id  = env.register_contract(None, ScoreGateScoreContract);
+//    let sg_id  = env.register_contract(None, ScoreGateScoreContract);
 //    let orc_id = env.register_contract(None, ExamplePriceFeedOracle);
-//    let ll  = ScoreGateScoreContractClient::new(&env, &ll_id);
+//    let sg  = ScoreGateScoreContractClient::new(&env, &sg_id);
 //    let orc = ExamplePriceFeedOracleClient::new(&env, &orc_id);
 //
 // 2. Push a price into the oracle:
@@ -84,16 +84,16 @@ impl ExamplePriceFeedOracle {
 //
 // 3. Register the oracle with ScoreGate (admin call):
 //
-//    ll.register_oracle(&admin_signers, &symbol_short!("XLM_USDC"), &orc_id);
+//    sg.register_oracle(&admin_signers, &symbol_short!("XLM_USDC"), &orc_id);
 //
 // 4. Submit a risk score for a wallet:
 //
-//    ll.submit_score(&signers, &wallet, &symbol_short!("XLM_USDC"),
+//    sg.submit_score(&signers, &wallet, &symbol_short!("XLM_USDC"),
 //                    &55, &false, &false, &ts, &90, &1, &None);
 //
 // 5. Query the effective score — confidence_floor will reflect the oracle price:
 //
-//    let eff = ll.get_effective_score(&wallet, &symbol_short!("XLM_USDC")).unwrap();
+//    let eff = sg.get_effective_score(&wallet, &symbol_short!("XLM_USDC")).unwrap();
 //    // price=500_000 → confidence_floor = 500_000 / 20_000 = 25
 //    assert_eq!(eff.confidence_floor, 25);
 //    assert_eq!(eff.original_score, 55);   // stored score unchanged

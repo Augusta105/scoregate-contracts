@@ -489,7 +489,7 @@ impl ScoreGateAggregator {
         false
     }
 
-    /// Infallible, side-effect-free (beyond recording `LastShardFailure`) gate
+    /// Infallible, side-effect-free gate
     /// check, mirroring `scoregate-score`'s own `query_risk_gate`: every
     /// registered, healthy shard must agree the wallet clears `gate_threshold`
     /// (an AND across shards), and any shard that is unhealthy is skipped, but
@@ -1117,7 +1117,8 @@ pub(crate) enum DataKey {
     Shards,
     LastShardFailure,
     ShardHealth(Address),
-    /// Capability snapshot recorded at `add_shard` time.\n    /// Stores a `Vec<Symbol>` of the capabilities the shard advertised via
+    /// Capability snapshot recorded at `add_shard` time.
+    /// Stores a `Vec<Symbol>` of the capabilities the shard advertised via
     /// `supports_interface` when it was registered.  Used by
     /// `get_shard_capabilities` and downgrade-detection tests.
     ShardCapabilities(Address),

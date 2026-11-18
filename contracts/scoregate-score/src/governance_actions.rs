@@ -1,5 +1,5 @@
-//! Governance action registry — stable identifiers for every privileged operation.
 #![cfg_attr(target_family = "wasm", allow(dead_code))]
+//! Governance action registry — stable identifiers for every privileged operation.
 //!
 //! ## Why this module exists
 //!
@@ -44,8 +44,8 @@
 //! | `0x04` | `pause` | `pause` |
 //! | `0x05` | `unpause` | `unpause` |
 //! | `0x06` | `upg_prop` | `propose_upgrade` |
-| `0x07` | `upg_veto` | `veto_upgrade` |
-| `0x08` | `rm_sig` | `remove_service_signer` |
+//! | `0x07` | `upg_veto` | `veto_upgrade` |
+//! | `0x08` | `rm_sig` | `remove_service_signer` |
 
 // ── Discriminants ─────────────────────────────────────────────────────────────
 //
@@ -95,7 +95,7 @@ pub const GOV_ACTION_UNPAUSE: u8 = 0x05;
 /// chain regardless of whether it is eventually executed or vetoed.
 pub const GOV_ACTION_PROPOSE_UPGRADE: u8 = 0x06;
 
-/// eto_upgrade - veto a pending upgrade proposal.
+/// `veto_upgrade` — veto a pending upgrade proposal.
 pub const GOV_ACTION_VETO_UPGRADE: u8 = 0x07;
 
 /// `remove_service_signer` — remove an address from the M-of-N service signer set.

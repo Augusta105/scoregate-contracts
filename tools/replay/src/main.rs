@@ -421,9 +421,7 @@ fn main() -> Result<()> {
             let service = Address::generate(&env);
             client.initialize(&admin, &service);
 
-            for i in 0..50 {
-                env.ledger().with_mut(|l| l.timestamp = 1_000_000 + i as u64);
-            }
+            env.ledger().with_mut(|l| l.timestamp = 1_000_049);
 
             run_failure_injection(&env, &client, &admin);
         }

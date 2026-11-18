@@ -823,13 +823,6 @@ pub fn prove_range_proof(env: &Env, v: u32, r: Sc, mut prng: SeededPrng) -> Bull
 
     let V = g_pt.mul(Sc::from_u64(v as u64), d).add(h_pt.mul(r, d), d);
     let (y, z) = hash_fs_y_z(env, &V, &A, &S);
-    #[cfg(test)]
-    {
-        std::println!("PROVER: V.x = {:?}, V.y = {:?}", V.x, V.y);
-        std::println!("PROVER: A.x = {:?}, A.y = {:?}", A.x, A.y);
-        std::println!("PROVER: S.x = {:?}, S.y = {:?}", S.x, S.y);
-        std::println!("PROVER: y = {:?}, z = {:?}", y, z);
-    }
 
     let mut y_pow = [Sc::one(); 8];
     for i in 1..8 {
@@ -859,12 +852,6 @@ pub fn prove_range_proof(env: &Env, v: u32, r: Sc, mut prng: SeededPrng) -> Bull
     let T2 = g_pt.mul(t2, d).add(h_pt.mul(tau2, d), d);
 
     let x = hash_fs_x(env, &T1, &T2);
-    #[cfg(test)]
-    {
-        std::println!("PROVER: T1.x = {:?}, T1.y = {:?}", T1.x, T1.y);
-        std::println!("PROVER: T2.x = {:?}, T2.y = {:?}", T2.x, T2.y);
-        std::println!("PROVER: x = {:?}", x);
-    }
     let x2 = x.mul(x);
 
     let mut l = [Sc::zero(); 8];
@@ -952,16 +939,6 @@ pub fn verify_range_proof(env: &Env, V: Pt, proof: &Bulletproof) -> bool {
 
     let (y, z) = hash_fs_y_z(env, &V, &proof.A, &proof.S);
     let x = hash_fs_x(env, &proof.T1, &proof.T2);
-    #[cfg(test)]
-    {
-        std::println!("VERIFIER: V.x = {:?}, V.y = {:?}", V.x, V.y);
-        std::println!("VERIFIER: A.x = {:?}, A.y = {:?}", proof.A.x, proof.A.y);
-        std::println!("VERIFIER: S.x = {:?}, S.y = {:?}", proof.S.x, proof.S.y);
-        std::println!("VERIFIER: y = {:?}, z = {:?}", y, z);
-        std::println!("VERIFIER: T1.x = {:?}, T1.y = {:?}", proof.T1.x, proof.T1.y);
-        std::println!("VERIFIER: T2.x = {:?}, T2.y = {:?}", proof.T2.x, proof.T2.y);
-        std::println!("VERIFIER: x = {:?}", x);
-    }
 
     let z2 = z.mul(z);
     let z3 = z2.mul(z);
@@ -985,8 +962,6 @@ pub fn verify_range_proof(env: &Env, V: Pt, proof: &Bulletproof) -> bool {
         .add(proof.T2.mul(x2, d), d);
 
     if lhs1 != rhs1 {
-        #[cfg(test)]
-        std::println!("verify_range_proof: lhs1 == rhs1 check failed!");
         return false;
     }
 
@@ -1051,10 +1026,5 @@ pub fn verify_range_proof(env: &Env, V: Pt, proof: &Bulletproof) -> bool {
     let ab = proof.a.mul(proof.b);
     let expected = gs_final.mul(proof.a, d).add(hs_final.mul(proof.b, d), d).add(Q.mul(ab, d), d);
 
-    let res = P_prime == expected;
-    if !res {
-        #[cfg(test)]
-        std::println!("verify_range_proof: P_prime == expected check failed!");
-    }
-    res
+    P_prime == expected
 }

@@ -2,10 +2,10 @@
 //! issue #238: `remove_shard` must clear `LastShardFailure` if it references
 //! the shard being removed.
 
-use crate::{Error, ScoreGateAggregator, ScoreGateAggregatorClient};
+use crate::{ScoreGateAggregator, ScoreGateAggregatorClient};
 use scoregate_score::{ScoreGateScoreContract, ScoreGateScoreContractClient};
 use scoregate_test_support::{generate_score_roles, test_env};
-use soroban_sdk::{symbol_short, testutils::Address as _, Address, Env, Vec};
+use soroban_sdk::{testutils::Address as _, Address, Env};
 
 /// Registers and initializes a real score shard.
 fn setup_score_shard<'a>(env: &Env) -> (Address, ScoreGateScoreContractClient<'a>) {
